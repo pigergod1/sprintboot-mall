@@ -1,5 +1,7 @@
 package com.pigergod.springbootmall.model;
 
+import com.pigergod.springbootmall.constant.ProductCategory;
+
 import java.util.Date;
 
 /**
@@ -10,7 +12,7 @@ import java.util.Date;
 public class Product {
     private Integer productId;
     private String productName;
-    private String category;
+    private ProductCategory category;
     private String imageurl;
     private Integer price;
     private Integer stock;
@@ -34,11 +36,11 @@ public class Product {
         this.productName = productName;
     }
 
-    public String getCategory() {
+    public ProductCategory getCategory() {
         return category;
     }
 
-    public void setCategory(String category) {
+    public void setCategory(ProductCategory category) {
         this.category = category;
     }
 

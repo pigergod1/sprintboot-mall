@@ -1,5 +1,6 @@
 package com.pigergod.springbootmall.rowmapper;
 
+import com.pigergod.springbootmall.constant.ProductCategory;
 import com.pigergod.springbootmall.model.Product;
 import org.springframework.jdbc.core.RowMapper;
 
@@ -19,7 +20,12 @@ public class ProductRowMapper implements RowMapper<Product> {
 //        可以從resultSet拿到資料庫的資料
         product.setProductId(resultSet.getInt("product_id"));
         product.setProductName(resultSet.getString("product_name"));
-        product.setCategory(resultSet.getString("category"));
+
+
+        String categoryStr =  resultSet.getString("category");
+        ProductCategory category = ProductCategory.valueOf(categoryStr);
+        product.setCategory(category);
+
         product.setImageurl(resultSet.getString("image_url"));
         product.setPrice(resultSet.getInt("price"));
         product.setStock(resultSet.getInt("stock"));
