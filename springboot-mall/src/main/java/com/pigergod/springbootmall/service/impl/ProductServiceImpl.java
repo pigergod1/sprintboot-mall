@@ -1,6 +1,7 @@
 package com.pigergod.springbootmall.service.impl;
 
 import com.pigergod.springbootmall.dao.ProductDao;
+import com.pigergod.springbootmall.dto.ProductRequest;
 import com.pigergod.springbootmall.model.Product;
 import com.pigergod.springbootmall.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +21,17 @@ public class ProductServiceImpl implements ProductService {
     //直接去 call ProductDao的 getProductById 方法
     @Override
     public Product getProductById(Integer productId) {
+
         return productDao.getProductById(productId);
     }
 
+    //去實作createProduct方法
 
+
+    @Override
+    public Integer createProduct(ProductRequest productRequest) {
+        //直接去call ProductDao裡面的createProduct方法
+        return productDao.createProduct(productRequest);
+        //接下來去實作ProductDao層
+    }
 }

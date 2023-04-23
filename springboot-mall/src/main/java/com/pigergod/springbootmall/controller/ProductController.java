@@ -1,13 +1,14 @@
 package com.pigergod.springbootmall.controller;
 
+import com.pigergod.springbootmall.dto.ProductRequest;
 import com.pigergod.springbootmall.model.Product;
 import com.pigergod.springbootmall.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 /**
  * ClassName:ProductController
@@ -38,4 +39,25 @@ public class ProductController {
            return ResponseEntity.notFound().build();
        }
     }
+
+
+    @PostMapping("/product")
+    //RequestBody 代表從前端傳過來的資料會被轉成ProductRequest物件
+    //ProductRequest物件是我們自己定義的，用來接收前端傳過來的json參數，並通過我們設定的notnull來驗證
+    //只要有@notnull的驗證，一定還要加上@valid--->兩個佩在一起才會生效
+    public ResponseEntity<Product> createProduct(@RequestBody @Valid ProductRequest  productRequest){
+    //可以從Dao層實作回來，也可以從Controller層實作進去。
+        //我們預期productService會提供一個createProduct的方法，來把productRequest轉成Product物件，會去資料庫中創建商品
+        //然後返回資料庫生成的productId給我們
+        Integer productId = productService.createProduct(productRequest);
+
+        //從資料庫中查詢一次，確保資料庫中有剛剛創建的商品
+        Product product = productService.getProductById(productId);
+    //把傳回去的數據，放到body中，並且回傳給前端
+        return ResponseEntity.status(HttpStatus.CREATED).body(product);
+
+        //接下來去productService新增createProduct的方法
+
+    }
+
 }

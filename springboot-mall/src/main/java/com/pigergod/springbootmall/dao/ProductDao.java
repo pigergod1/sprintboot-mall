@@ -1,5 +1,6 @@
 package com.pigergod.springbootmall.dao;
 
+import com.pigergod.springbootmall.dto.ProductRequest;
 import com.pigergod.springbootmall.model.Product;
 
 /**
@@ -10,4 +11,8 @@ import com.pigergod.springbootmall.model.Product;
 public interface ProductDao {
 
     Product getProductById(Integer productId);
+
+    //返回值是Integer，因為我們預期會返回一個productId給前端
+    //參數是productRequest
+    Integer createProduct(ProductRequest productRequest);
 }
