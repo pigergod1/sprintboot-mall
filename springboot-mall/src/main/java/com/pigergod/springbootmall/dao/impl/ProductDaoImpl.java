@@ -76,5 +76,22 @@ else{
         int productId = keyHolder.getKey().intValue();
         return productId;
     }
+
+    @Override
+    public void updateProduct(Integer productId, ProductRequest productRequest) {
+        String sql = "update product set product_name = :productName, category = :category, image_url = :image_url, price = :price, stock = :stock, description = :description, last_modified_date = :lastModifiedDate where product_id = :productId";
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("productName", productRequest.getProductName());
+        map.put("category", productRequest.getCategory().toString());
+        map.put("image_url", productRequest.getImageurl());
+        map.put("price", productRequest.getPrice());
+        map.put("stock", productRequest.getStock());
+        map.put("description", productRequest.getDescription());
+        map.put("lastModifiedDate", new Date());
+        map.put("productId", productId);
+
+        namedParameterJdbcTemplate.update(sql, map);
+    }
 }
 

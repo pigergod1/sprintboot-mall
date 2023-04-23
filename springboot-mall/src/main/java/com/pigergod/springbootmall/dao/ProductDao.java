@@ -15,4 +15,7 @@ public interface ProductDao {
     //返回值是Integer，因為我們預期會返回一個productId給前端
     //參數是productRequest
     Integer createProduct(ProductRequest productRequest);
+
+
+    void updateProduct(Integer productId, ProductRequest productRequest);
 }

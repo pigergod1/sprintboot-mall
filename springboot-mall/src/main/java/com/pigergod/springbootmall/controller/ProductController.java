@@ -60,4 +60,28 @@ public class ProductController {
 
     }
 
+    @PutMapping("/product/{productId}")
+    public ResponseEntity<Product> updateProduct(@PathVariable Integer productId,
+                                                 @RequestBody @Valid ProductRequest productRequest){
+    //為了更嚴謹，我們可以先去資料庫中查詢，先去確保資料庫中是否有這個商品
+    Product product = productService.getProductById(productId);
+    if(product == null){
+    //如果沒有，就回傳404
+    return ResponseEntity.notFound().build();
+}
+        //開始修改商品數據
+        //我們預期productService會提供一個updateProduct的方法，來把productRequest轉成Product物件，會去資料庫中更新商品
+        //然後返回資料庫生成的productId給我們
+        //productRequest來表示修改過後的值為何
+        productService.updateProduct(productId,productRequest);
+
+        //去資料庫中查詢更新過後的值，確保資料庫中有剛剛創建的商品
+
+        Product updateProduct = productService.getProductById(productId);
+        //把傳回去的數據，放到body中，並且回傳給前端
+        return ResponseEntity.status(HttpStatus.OK).body(updateProduct);
+
+        //接下來去productService新增updateProduct的方法
+    }
+
 }

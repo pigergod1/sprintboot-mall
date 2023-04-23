@@ -17,4 +17,7 @@ public interface ProductService {
     //返回值是Integer，因為我們預期會返回一個productId給前端
     //定義完方法後，去ProductserviceImpl.java實作
     Integer createProduct(ProductRequest productRequest);
+
+    //因為沒有返回值，所以不用寫return
+    void updateProduct(Integer productId, ProductRequest productRequest);
 }

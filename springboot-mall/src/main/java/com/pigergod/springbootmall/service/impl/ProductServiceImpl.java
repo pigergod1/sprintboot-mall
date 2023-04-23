@@ -34,4 +34,10 @@ public class ProductServiceImpl implements ProductService {
         return productDao.createProduct(productRequest);
         //接下來去實作ProductDao層
     }
+
+    @Override
+    public void updateProduct(Integer productId, ProductRequest productRequest) {
+        //直接去call ProductDao裡面的updateProduct方法
+        productDao.updateProduct(productId,productRequest);
+    }
 }
