@@ -84,4 +84,14 @@ public class ProductController {
         //接下來去productService新增updateProduct的方法
     }
 
+
+    //刪除商品
+    //只要確定商品消失不見，就確定刪除成功，不需要特別設定條件
+    @DeleteMapping("/product/{productId}")
+    public ResponseEntity<?> deleteProduct(@PathVariable Integer productId){
+    productService.deleteProductById(productId);
+
+    //刪除成功，返回204
+    return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
 }

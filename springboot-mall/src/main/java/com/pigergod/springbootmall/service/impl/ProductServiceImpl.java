@@ -40,4 +40,10 @@ public class ProductServiceImpl implements ProductService {
         //直接去call ProductDao裡面的updateProduct方法
         productDao.updateProduct(productId,productRequest);
     }
+
+    @Override
+    public void deleteProductById(Integer productId) {
+        //直接去call ProductDao裡面的deleteProductById方法
+        productDao.deleteProductById(productId);
+    }
 }

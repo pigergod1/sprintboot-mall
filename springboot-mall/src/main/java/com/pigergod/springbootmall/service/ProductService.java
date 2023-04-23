@@ -20,4 +20,7 @@ public interface ProductService {
 
     //因為沒有返回值，所以不用寫return
     void updateProduct(Integer productId, ProductRequest productRequest);
+
+    //沒有返回值
+    void deleteProductById(Integer productId);
 }
