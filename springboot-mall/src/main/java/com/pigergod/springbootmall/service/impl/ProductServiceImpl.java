@@ -7,6 +7,8 @@ import com.pigergod.springbootmall.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 /**
  * ClassName:ProductServiceImpl
  * Description:
@@ -45,5 +47,10 @@ public class ProductServiceImpl implements ProductService {
     public void deleteProductById(Integer productId) {
         //直接去call ProductDao裡面的deleteProductById方法
         productDao.deleteProductById(productId);
+    }
+
+    @Override
+    public List<Product> getProducts() {
+        return productDao.getProducts();
     }
 }

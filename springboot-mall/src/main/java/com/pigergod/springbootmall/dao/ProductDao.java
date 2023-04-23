@@ -3,12 +3,17 @@ package com.pigergod.springbootmall.dao;
 import com.pigergod.springbootmall.dto.ProductRequest;
 import com.pigergod.springbootmall.model.Product;
 
+import java.util.List;
+
 /**
  * ClassName:ProductDao
  * Description:
  * Create:2023/4/22 下午 03:41
  */
 public interface ProductDao {
+
+    //查詢所有商品
+    List<Product> getProducts();
 
     Product getProductById(Integer productId);
 
@@ -20,4 +25,6 @@ public interface ProductDao {
     void updateProduct(Integer productId, ProductRequest productRequest);
 
     void deleteProductById(Integer productId);
+
+
 }

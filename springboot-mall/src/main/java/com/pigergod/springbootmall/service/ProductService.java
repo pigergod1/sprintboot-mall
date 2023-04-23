@@ -3,14 +3,18 @@ package com.pigergod.springbootmall.service;
 import com.pigergod.springbootmall.dto.ProductRequest;
 import com.pigergod.springbootmall.model.Product;
 
+import java.util.List;
+
 /**
  * ClassName:ProductService
  * Description:
  * Create:2023/4/22 下午 06:07
  */
 public interface ProductService {
+    //查詢所有商品
+    List<Product> getProducts();
 
-//直接複製ProductDao.java的方法
+    //直接複製ProductDao.java的方法
     Product getProductById(Integer productId);
 
     //新增一個方法，用來創建商品
@@ -23,4 +27,6 @@ public interface ProductService {
 
     //沒有返回值
     void deleteProductById(Integer productId);
+
+
 }

@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 /**
  * ClassName:ProductController
@@ -20,6 +21,17 @@ public class ProductController {
 
     @Autowired
     private ProductService productService;
+
+    //查詢所有商品
+    //返回值是一個List<Product>，所以我們可以用ResponseEntity<List>來表示，List裡面放的是Product數據。
+    @GetMapping("/products")
+    public ResponseEntity<List<Product>>getProducts(){
+        //getProducts的方法沒有參數，所以我們可以直接調用，並會回傳一個List<Product>的列表
+        List<Product> productList =productService.getProducts();
+        //把productList放到body(responsebody)中，並且回傳給前端
+        return ResponseEntity.status(HttpStatus.OK).body(productList);
+
+    }
 
 @GetMapping("/product/{productId}")
 //ResponseEntity<Product> 代表返回的是一個Product物件

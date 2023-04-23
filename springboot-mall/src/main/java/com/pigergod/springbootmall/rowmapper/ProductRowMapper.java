@@ -13,6 +13,10 @@ import java.sql.SQLException;
  * Create:2023/4/22 下午 05:12
  */
 public class ProductRowMapper implements RowMapper<Product> {
+    //RowMapper是一個介面，裡面只有一個方法
+    //mapRow方法，這個方法會在query方法中被調用
+    //query方法會把每一行的資料都傳進來
+    //我們可以在這個方法中把每一行的資料轉換成一個Product物件
 
     @Override
     public Product mapRow(ResultSet resultSet, int i) throws SQLException {
@@ -22,7 +26,9 @@ public class ProductRowMapper implements RowMapper<Product> {
         product.setProductName(resultSet.getString("product_name"));
 
 
+        //因為我們在資料庫中存的是String，但是我們在Product類中定義的是enum
         String categoryStr =  resultSet.getString("category");
+        //這邊要把String轉成enum
         ProductCategory category = ProductCategory.valueOf(categoryStr);
         product.setCategory(category);
 
