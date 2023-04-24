@@ -1,6 +1,7 @@
 package com.pigergod.springbootmall.controller;
 
 import com.pigergod.springbootmall.constant.ProductCategory;
+import com.pigergod.springbootmall.dto.ProductQueryParams;
 import com.pigergod.springbootmall.dto.ProductRequest;
 import com.pigergod.springbootmall.model.Product;
 import com.pigergod.springbootmall.service.ProductService;
@@ -32,10 +33,17 @@ public class ProductController {
             @RequestParam (required = false)ProductCategory category,
             @RequestParam (required = false)String search
     ){
+        //用ProductQueryParams來整理全部的變數，會讓程式碼更簡潔
+        //未來只要想新增變數，只要在Controller層新增一個參數，然後在ProductQueryParams裡面新增一個變數就可以了
+        //不需要再去改動Service層和Dao層
+        //把前端傳來的值set到productQueryParams這個變數裡
+        ProductQueryParams productQueryParams = new ProductQueryParams();
+        productQueryParams.setCategory(category);
+        productQueryParams.setSearch(search);
         //先把category的值傳到getProducts()方法中，並且會回傳一個List<Product>的列表
         //getProducts的方法沒有參數，所以我們可以直接調用，並會回傳一個List<Product>的列表
         //一路修改interface和class把search傳到Dao層
-        List<Product> productList =productService.getProducts(category,search);
+        List<Product> productList =productService.getProducts(productQueryParams);
         //把productList放到body(responsebody)中，並且回傳給前端
         return ResponseEntity.status(HttpStatus.OK).body(productList);
 

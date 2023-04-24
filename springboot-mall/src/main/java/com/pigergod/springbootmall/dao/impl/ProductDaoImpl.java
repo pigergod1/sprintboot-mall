@@ -1,7 +1,7 @@
 package com.pigergod.springbootmall.dao.impl;
 
-import com.pigergod.springbootmall.constant.ProductCategory;
 import com.pigergod.springbootmall.dao.ProductDao;
+import com.pigergod.springbootmall.dto.ProductQueryParams;
 import com.pigergod.springbootmall.dto.ProductRequest;
 import com.pigergod.springbootmall.model.Product;
 import com.pigergod.springbootmall.rowmapper.ProductRowMapper;
@@ -34,28 +34,28 @@ public class ProductDaoImpl implements ProductDao {
     @Override
     //在dao層實作getProducts方法時要特別注意null條件的處理
     //因為前端傳過來的category跟search可能是null，所以要先判斷category或search是否為null
-    public List<Product> getProducts(ProductCategory category,String search) {
+    public List<Product> getProducts(ProductQueryParams productQueryParams) {
         String sql = "select  product_id,product_name, category," +
                 "image_url, price, stock, description, created_date,"+
                 " last_modified_date from product where 1=1";
         Map<String, Object> map = new HashMap<>();
-        if(category != null){
+        if(productQueryParams.getCategory() != null){
             //!!!!!超重要:一定要在and前面加上空格!!!!!才不會跟前面的查詢條件黏在一起
             sql += " and category = :category";
             //第二個參數:把前端傳過來的category值放到map中
             // 因為category是enum類型，要使用它的name方法將其轉換成String，再把字串加到map中。
-            map.put("category", category.name());
+            map.put("category", productQueryParams.getCategory().name());
         }
         //把search的部分跟條件寫在Dao實作層
         //最後search的部分,如果search不為空,就把search的值放到map中
-        if(search != null){
+        if(productQueryParams.getSearch() != null){
             //Like指令:模糊查詢
             //like通常會搭配%使用
             sql += " and product_name like :search";
             //後面的參數:把前端傳過來的search值放到map中
             //前面的參數:把search值放到map中
             //%一定要放在map中，不能放在sql語句中，這是Spring JdbcTemplate的規定
-            map.put("search", "%"+search+"%");
+            map.put("search", "%"+productQueryParams.getSearch()+"%");
         }
 
 
