@@ -1,5 +1,6 @@
 package com.pigergod.springbootmall.service.impl;
 
+import com.pigergod.springbootmall.constant.ProductCategory;
 import com.pigergod.springbootmall.dao.ProductDao;
 import com.pigergod.springbootmall.dto.ProductRequest;
 import com.pigergod.springbootmall.model.Product;
@@ -50,7 +51,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> getProducts() {
-        return productDao.getProducts();
+    public List<Product> getProducts(ProductCategory category,String search) {
+        //把category傳入ProductDao裡面的getProducts方法
+        return  productDao.getProducts(category,search);
     }
 }

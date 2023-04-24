@@ -1,5 +1,6 @@
 package com.pigergod.springbootmall.controller;
 
+import com.pigergod.springbootmall.constant.ProductCategory;
 import com.pigergod.springbootmall.dto.ProductRequest;
 import com.pigergod.springbootmall.model.Product;
 import com.pigergod.springbootmall.service.ProductService;
@@ -25,9 +26,16 @@ public class ProductController {
     //查詢所有商品
     //返回值是一個List<Product>，所以我們可以用ResponseEntity<List>來表示，List裡面放的是Product數據。
     @GetMapping("/products")
-    public ResponseEntity<List<Product>>getProducts(){
+    public ResponseEntity<List<Product>>getProducts(
+            //表示category的參數是從URL中取得的請求參數。前端就可以靠傳過來的值指定要查詢的類別。
+            //我們可以從URL中取得參數，例如：http://localhost:8080/products?category=BOOKS
+            @RequestParam (required = false)ProductCategory category,
+            @RequestParam (required = false)String search
+    ){
+        //先把category的值傳到getProducts()方法中，並且會回傳一個List<Product>的列表
         //getProducts的方法沒有參數，所以我們可以直接調用，並會回傳一個List<Product>的列表
-        List<Product> productList =productService.getProducts();
+        //一路修改interface和class把search傳到Dao層
+        List<Product> productList =productService.getProducts(category,search);
         //把productList放到body(responsebody)中，並且回傳給前端
         return ResponseEntity.status(HttpStatus.OK).body(productList);
 

@@ -1,5 +1,6 @@
 package com.pigergod.springbootmall.service;
 
+import com.pigergod.springbootmall.constant.ProductCategory;
 import com.pigergod.springbootmall.dto.ProductRequest;
 import com.pigergod.springbootmall.model.Product;
 
@@ -12,7 +13,7 @@ import java.util.List;
  */
 public interface ProductService {
     //查詢所有商品
-    List<Product> getProducts();
+    List<Product> getProducts(ProductCategory category,String search);
 
     //直接複製ProductDao.java的方法
     Product getProductById(Integer productId);
