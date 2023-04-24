@@ -28,10 +28,18 @@ public class ProductController {
     //返回值是一個List<Product>，所以我們可以用ResponseEntity<List>來表示，List裡面放的是Product數據。
     @GetMapping("/products")
     public ResponseEntity<List<Product>>getProducts(
+
             //表示category的參數是從URL中取得的請求參數。前端就可以靠傳過來的值指定要查詢的類別。
             //我們可以從URL中取得參數，例如：http://localhost:8080/products?category=BOOKS
+            //查詢條件 Filtering
             @RequestParam (required = false)ProductCategory category,
-            @RequestParam (required = false)String search
+            @RequestParam (required = false)String search,
+
+            //在工作當中。一定會想要顯示出最新商品在第一頁上
+            //如果沒有前端傳過來的值，就會使用預設值，這裡設定是商品創建的時間
+            //排序 Sorting
+            @RequestParam (defaultValue = "created_date")String orderBy, //根據哪個欄位排序
+            @RequestParam (defaultValue = "desc")String sort //升序或降序
     ){
         //用ProductQueryParams來整理全部的變數，會讓程式碼更簡潔
         //未來只要想新增變數，只要在Controller層新增一個參數，然後在ProductQueryParams裡面新增一個變數就可以了
@@ -40,6 +48,9 @@ public class ProductController {
         ProductQueryParams productQueryParams = new ProductQueryParams();
         productQueryParams.setCategory(category);
         productQueryParams.setSearch(search);
+        productQueryParams.setOrderBy(orderBy);
+        productQueryParams.setSort(sort);
+
         //先把category的值傳到getProducts()方法中，並且會回傳一個List<Product>的列表
         //getProducts的方法沒有參數，所以我們可以直接調用，並會回傳一個List<Product>的列表
         //一路修改interface和class把search傳到Dao層

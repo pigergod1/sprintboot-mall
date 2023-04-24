@@ -58,7 +58,10 @@ public class ProductDaoImpl implements ProductDao {
             map.put("search", "%"+productQueryParams.getSearch()+"%");
         }
 
-
+        //我們會在where語句最後面去拼接order by的sql語法
+        //根據前端傳過來的orderBy和sort來決定欄位和排序方式
+        //不用做null的判斷，因為在controller層已經用@defaultvalue給了預設值
+        sql += " Order By " + productQueryParams.getOrderBy() + " " + productQueryParams.getSort();
         //接住query方法的返回值
         List<Product> productList = namedParameterJdbcTemplate.query(sql,map, new ProductRowMapper());
         return productList;
